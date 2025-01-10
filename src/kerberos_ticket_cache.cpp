@@ -11,6 +11,11 @@ KerberosTicketCache::KerberosTicketCache(const KerberosConfig& config)
     initializeContext();
 }
 
+KerberosTicketCache::KerberosTicketCache(const KerberosConfig& config, const std::string& krb5_conf_path)
+    : config_(config), krb5_conf_path_(krb5_conf_path) {
+    initializeContext();
+}
+
 KerberosTicketCache::~KerberosTicketCache() {
     stopPeriodicRefresh();
     cleanupContext();
