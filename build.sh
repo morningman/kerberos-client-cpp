@@ -10,7 +10,7 @@ set -x
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # 设置krb5安装路径 (根据实际情况修改)
-KRB5_ROOT="/path/to/thirdparty/installed"
+KRB5_ROOT="/mnt/disk1/yy/git/doris/thirdparty/installed/"
 
 # 创建并进入构建目录
 mkdir -p "${PROJECT_ROOT}/build"

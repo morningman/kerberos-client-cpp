@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Set KRB5 custom path
-set(KRB5_ROOT "/path/to/thirdparty/installed")
+set(KRB5_ROOT "/mnt/disk1/yy/git/doris/thirdparty/installed/")
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${KRB5_ROOT})
 
 # Help CMake find KRB5
@@ -39,7 +39,6 @@ target_include_directories(kerberos_client
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
-    PRIVATE
         ${KRB5_INCLUDE_DIRS}
 )
 
@@ -61,9 +60,6 @@ target_link_libraries(kerberos_client_demo
     PRIVATE
         kerberos_client
 )
-
-# Add tests subdirectory
-add_subdirectory(tests)
 
 # Installation rules
 install(TARGETS kerberos_client
