@@ -22,7 +22,7 @@ find_package(OpenSSL REQUIRED)
 
 # 设置静态链接
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
+#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
 
 # Add library target
 add_library(kerberos_client
@@ -59,6 +59,7 @@ add_executable(kerberos_client_demo
 target_link_libraries(kerberos_client_demo
     PRIVATE
         kerberos_client
+        -lresolv
 )
 
 # Installation rules

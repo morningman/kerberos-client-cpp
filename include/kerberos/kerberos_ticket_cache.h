@@ -30,7 +30,7 @@ public:
     
     // 执行需要Kerberos认证的操作
     template<typename Func>
-    auto KerberosTicketCache::doAs(Func&& func) -> decltype(func()) {
+    auto doAs(Func&& func) -> decltype(func()) {
         std::lock_guard<std::mutex> lock(mutex_);
         
         if (needsRefresh()) {
