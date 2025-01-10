@@ -106,17 +106,6 @@ void KerberosTicketCache::refreshTickets() {
     }
 }
 
-template<typename Func>
-auto KerberosTicketCache::doAs(Func&& func) -> decltype(func()) {
-    std::lock_guard<std::mutex> lock(mutex_);
-    
-    if (needsRefresh()) {
-        refreshTickets();
-    }
-    
-    return func();
-}
-
 void KerberosTicketCache::startPeriodicRefresh() {
     should_stop_refresh_ = false;
     refresh_thread_ = std::make_unique<std::thread>([this]() {
