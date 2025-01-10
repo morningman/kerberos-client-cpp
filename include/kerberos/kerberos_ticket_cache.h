@@ -7,12 +7,20 @@
 #include <mutex>
 #include <atomic>
 #include <functional>
+#include <iostream>
 
 namespace kerberos {
 
 class KerberosTicketCache {
 public:
-    explicit KerberosTicketCache(const KerberosConfig& config);
+    // 添加新的构造函数，允许指定 krb5.conf 路径
+    KerberosTicketCache(const KerberosConfig& config, const std::string& krb5_conf_path)
+        : config_(config), krb5_conf_path_(krb5_conf_path) {}
+    
+    // 保持原有构造函数作为默认行为
+    explicit KerberosTicketCache(const KerberosConfig& config)
+        : config_(config) {}
+
     ~KerberosTicketCache();
 
     // 禁用拷贝
@@ -58,6 +66,7 @@ private:
     std::unique_ptr<std::thread> refresh_thread_;
     std::mutex mutex_;
     std::atomic<bool> should_stop_refresh_{false};
+    std::string krb5_conf_path_;
 };
 
 } // namespace kerberos 

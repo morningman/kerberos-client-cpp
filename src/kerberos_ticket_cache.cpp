@@ -131,10 +131,21 @@ void KerberosTicketCache::stopPeriodicRefresh() {
 }
 
 void KerberosTicketCache::initializeContext() {
-    krb5_error_code code = krb5_init_context(&context_);
-    if (code) {
-        throw KerberosException("Failed to initialize Kerberos context");
+    krb5_error_code code;
+    
+    if (!krb5_conf_path_.empty()) {
+        // 设置环境变量以指定 krb5.conf 路径
+        if (setenv("KRB5_CONFIG", krb5_conf_path_.c_str(), 1) != 0) {
+            throw std::runtime_error("Failed to set KRB5_CONFIG environment variable");
+        }
+        std::cerr << "Using custom krb5.conf: " << krb5_conf_path_ << std::endl;
     }
+
+    code = krb5_init_context(&context_);
+    checkError(code, "Failed to initialize krb5 context");
+
+    code = krb5_parse_name(context_, config_.getPrincipal().c_str(), &principal_);
+    checkError(code, "Failed to parse principal name");
 }
 
 void KerberosTicketCache::cleanupContext() {
