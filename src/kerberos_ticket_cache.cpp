@@ -118,7 +118,9 @@ void KerberosTicketCache::startPeriodicRefresh() {
             try {
                 if (needsRefresh()) {
                     refreshTickets();
+                    std::cout << "after refresh ticket" << std::endl;
                 }
+                std::cout << "sleep after refresh ticket" << std::endl;
             } catch (const std::exception& e) {
                 // Log error but continue running
             }
@@ -196,6 +198,8 @@ bool KerberosTicketCache::needsRefresh() const {
             needs_refresh = false;
         }
         krb5_free_cred_contents(context_, &creds);
+        std::cout << "Need refresh ticket cache: " << needs_refresh
+                  << " creds.times.endtime: " << creds.times.endtime << std::endl;
     }
 
     krb5_cc_end_seq_get(context_, ccache_, &cursor);

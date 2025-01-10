@@ -17,11 +17,11 @@ int main(int argc, char* argv[]) {
         config.setKeytabPath(argv[1]);
         config.setPrincipal(argv[2]);
         config.setCacheFilePath("FILE:/tmp/krb5cc_test");  // 设置票据缓存文件路径
-        config.setRefreshInterval(std::chrono::seconds(300));  // 5分钟刷新一次
-        config.setMinTimeBeforeRefresh(std::chrono::seconds(600));  // 剩余10分钟时刷新
+        config.setRefreshInterval(std::chrono::seconds(5));  // 5分钟刷新一次
+        config.setMinTimeBeforeRefresh(std::chrono::seconds(10));  // 剩余10分钟时刷新
 
         // 创建票据缓存管理器
-        kerberos::KerberosTicketCache ticket_cache(config);
+        kerberos::KerberosTicketCache ticket_cache(config, "/mnt/disk1/yy/ali-emr/krb5.conf");
 
         // 初始化
         std::cout << "Initializing Kerberos ticket cache..." << std::endl;

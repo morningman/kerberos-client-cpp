@@ -1,0 +1,1 @@
+sh start.sh /mnt/disk1/yy/ali-emr/hdfs.keytab hdfs/master-1-1.c-0596176698bd4d17.cn-beijing.emr.aliyuncs.com@EMR.C-0596176698BD4D17.COM
